@@ -6,7 +6,12 @@ spec:
   selector:
     app: nginx
   ports:
-    - name: metrics 
+    - name: html 
+      protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30080
+    - name: metrics
       protocol: TCP
       port: 8080
       targetPort: 8080

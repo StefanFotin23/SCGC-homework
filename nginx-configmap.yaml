@@ -8,8 +8,14 @@ data:
 
     http {
         server {
+            listen 80;
             listen 8080;
             server_name localhost;
+
+            location / {
+                root /usr/share/nginx/html;
+                index index.html;
+            }
 
             location /metrics {
                 stub_status on;

@@ -16,13 +16,19 @@ spec:
       - name: nginx
         image: nginx:latest
         ports:
+        - containerPort: 80
         - containerPort: 8080
         volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
+        - name: html-content
+          mountPath: /usr/share/nginx/html/index.html
+          subPath: index.html
       volumes:
       - name: nginx-config
         configMap:
           name: nginx-config
-
+      - name: html-content
+        configMap:
+          name: nginx-html
