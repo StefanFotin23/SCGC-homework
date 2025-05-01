@@ -8,4 +8,9 @@ prometheus:
           - targets:
             - 'promexporter.default.svc.cluster.local:9113'
     service:
-      port: 9090
+      # Expose Prometheus server on port 9090 (default HTTP port for Prometheus)
+      port: 9090                 # This is the internal port exposed on the Prometheus service
+      targetPort: 9090           # This is the internal port on the Prometheus pod/container
+      nodePort: 30090            # This is the external node port (on your Kubernetes nodes) if you want it exposed externally
+      type: NodePort             # You can use NodePort to expose it externally
+
