@@ -1,14 +1,26 @@
-.PHONY: all setup create-namespaces install-prometheus install-grafana apply create-cluster add-repos install-dependencies get-pods get-svc status
+.PHONY: all setup create-namespaces install-prometheus install-grafana apply create-cluster add-repos install-dependencies get-pods get-svc get-deployments get-configmaps get-namespaces status
 
-status: get-pods get-svc
+status: get-namespaces get-configmaps get-deployments get-pods get-svc
+
+get-namespaces:
+	kubectl get namespaces
+	@echo "\n"
+
+get-configmaps:
+	kubectl get configmaps --all-namespaces
+	@echo "\n"
+
+get-deployments:
+	kubectl get deployments --all-namespaces
+	@echo "\n"
 
 get-pods:
-	@echo "Getting all pods from all namespaces..."
 	kubectl get pods --all-namespaces
+	@echo "\n"
 
 get-svc:
-	@echo "Getting all services from all namespaces..."
 	kubectl get svc --all-namespaces
+	@echo "\n"
 
 # The 'all' target: creates the cluster, sets up the environment, and applies resources
 all: install-dependencies create-cluster create-namespaces setup apply
@@ -40,7 +52,9 @@ add-repos:
 
 # Install Prometheus using Helm with the custom values file
 install-prometheus:
-	helm install prometheus prometheus-community/prometheus -f prometheus-values.yaml --namespace monitoring
+	helm install prometheus prometheus-community/prometheus \
+	--namespace monitoring \
+	-f helm/prometheus-chart.yaml
 
 # Install Grafana using Helm with no persistence
 install-grafana:

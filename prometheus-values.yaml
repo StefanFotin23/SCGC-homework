@@ -1,7 +1,0 @@
-server:
-  global:
-    scrape_interval: 15s
-  scrape_configs:
-    - job_name: 'promexporter'
-      static_configs:
-        - targets: ['promexporter.default.svc.cluster.local:9113']
