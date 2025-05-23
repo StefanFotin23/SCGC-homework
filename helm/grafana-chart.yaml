@@ -1,0 +1,17 @@
+grafana:
+  persistence:
+    enabled: false
+  service:
+    type: NodePort
+    port: 3000
+  admin:
+    existingSecret: grafana-secret
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          url: http://prometheus-server.monitoring.svc.cluster.local
+          isDefault: true

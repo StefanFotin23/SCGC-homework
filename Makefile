@@ -58,7 +58,7 @@ install-prometheus:
 
 # Install Grafana using Helm with no persistence
 install-grafana:
-	helm install grafana bitnami/grafana --namespace monitoring --set persistence.enabled=false
+	helm install grafana bitnami/grafana --namespace monitoring -f helm/grafana-chart.yaml
 
 # Apply all resources recursively in the current directory
 apply:
